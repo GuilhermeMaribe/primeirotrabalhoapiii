@@ -44,6 +44,7 @@ public class ListaEncadeada<T> {
 	    }
     }
 
+    
     public static int Partition(int[] dado, int anterior, int proximo) {
 
         int pivot = dado[anterior];
@@ -64,9 +65,7 @@ public class ListaEncadeada<T> {
             else {
                 return proximo;
             }
-
         }
-
     }
 
     public static void QuickSort_Recursive(int[] arr, int anterior, int proximo) {
@@ -80,18 +79,73 @@ public class ListaEncadeada<T> {
               QuickSort_Recursive(arr, pivot + 1, proximo);
         }
     }
+/*
+    
+    
+    
+    Tentativa MergeSort
+    
+    
+    
+    */
+    public class MergeSort<T extends Comparable<T>>{
+	
+	public void ordena(T[] array, int indiceInicio, int indiceFim) {
 
-    public static void main(String[] args) {
+		
+		if (array != null && indiceInicio < indiceFim && indiceInicio >= 0 &&
+		 indiceFim < array.length && array.length != 0) {
+			int meio = ((indiceFim + indiceInicio) / 2);
 
-        int[] dado = { 3, 8, 7, 5, 2, 1, 9, 6, 4 };
-        int len = 9;
-        System.out.println("QuickSort By Recursive Method");
+			ordena(array, indiceInicio, meio);
+			ordena(array, meio + 1, indiceFim);
 
-        QuickSort_Recursive(dado, 0, len - 1);
-            for (int i = 0; i < 9; i++)
-                System.out.println(dado[i]);
-                System.out.println();
-    }
+			merge(array, indiceInicio, meio, indiceFim);
+		}
+
+	}
+
+	
+	public void merge(T[] array, int indiceInicio, int meio, int indiceFim) {
+
+		T[] auxiliar =(T[]) new Comparable[array.length];
+		
+		for (int i = indiceInicio; i <= indiceFim; i++) {
+			auxiliar[i] = array[i];
+		}
+
+		
+		int i = indiceInicio;
+		int j = meio + 1;
+		int k = indiceInicio;
+
+		
+		while (i <= meio && j <= indiceFim) {
+			if (auxiliar[i].compareTo(auxiliar[j]) < 0) {
+				array[k] = auxiliar[i];
+				i++;
+			} else {
+				array[k] = auxiliar[j];
+				j++;
+			}
+			k++;
+		}
+
+		
+		while (i <= meio) {
+			array[k] = auxiliar[i];
+			i++;
+			k++;
+		}
+
+		
+		while (j <= indiceFim) {
+			array[k] = auxiliar[j];
+			j++;
+			k++;
+		}
+	}
+    } 
 }
 
 
